@@ -4,7 +4,7 @@ use std::mem;
 
 use ::context::Context;
 use ::abilities::Abilities;
-use ::media::Media;
+use ::media::{Media, FileMedia};
 use ::port::Port;
 use ::storage::Storage;
 
@@ -35,6 +35,19 @@ impl Camera {
         try_unsafe!(::gphoto2::gp_camera_init(camera.camera, context.as_mut_ptr()));
 
         Ok(camera)
+    }
+
+    /// Captures a preview.
+    pub fn capture_preview(&mut self, context: &mut Context) -> ::Result<FileMedia> {
+        let mut file_media = FileMedia::create_mem().unwrap();
+
+        try_unsafe! {
+            ::gphoto2::gp_camera_capture_preview(self.camera,
+                                                 file_media.as_mut_ptr(),
+                                                 context.as_mut_ptr())
+        };
+
+        Ok(file_media)
     }
 
     /// Captures an image.

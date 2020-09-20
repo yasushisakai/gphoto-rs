@@ -2,6 +2,8 @@
 
 The `gphoto` crate provides a safe wrapper around the native `libgphoto2` library.
 
+I pin this fork to use it for https://github.com/yasushisakai/dslr-capture.
+
 ## Dependencies
 In order to use the `gphoto` crate, you must have a Unix system with the `libgphoto2` library
 installed where it can be found by `pkg-config`.
